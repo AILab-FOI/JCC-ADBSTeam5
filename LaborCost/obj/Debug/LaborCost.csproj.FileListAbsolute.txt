@@ -77,3 +77,5 @@ C:\Users\Nenad\Desktop\Projekti\LaborCost\obj\Debug\LaborCost.csproj.AssemblyRef
 C:\Users\Nenad\Desktop\Projekti\LaborCost\obj\Debug\LaborCost.ContractForm.resources
 C:\Users\Nenad\Desktop\Projekti\LaborCost\obj\Debug\LaborCost.Add_jobForm.resources
 C:\Users\Nenad\Desktop\Projekti\LaborCost\obj\Debug\LaborCost.UpdateContractForm.resources
+C:\Users\anael\Source\Repos\JCC-ADBSTeam5\LaborCost\obj\Debug\LaborCost.exe
+C:\Users\anael\Source\Repos\JCC-ADBSTeam5\LaborCost\obj\Debug\LaborCost.pdb
