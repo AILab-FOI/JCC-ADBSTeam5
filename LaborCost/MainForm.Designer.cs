@@ -33,15 +33,18 @@ namespace LaborCost
             this.menuStrip1 = new System.Windows.Forms.MenuStrip();
             this.toolStripMenuNEW = new System.Windows.Forms.ToolStripMenuItem();
             this.toolStripMenuEmployee = new System.Windows.Forms.ToolStripMenuItem();
+            this.allEmployeesToolStripMenuItem = new System.Windows.Forms.ToolStripMenuItem();
             this.toolStripMenuContract = new System.Windows.Forms.ToolStripMenuItem();
             this.jobPositionToolStripMenuItem = new System.Windows.Forms.ToolStripMenuItem();
-            this.toolStripMenuItem7 = new System.Windows.Forms.ToolStripMenuItem();
-            this.deleteShiftToolStripMenuItem = new System.Windows.Forms.ToolStripMenuItem();
-            this.toolStripMenuItem8 = new System.Windows.Forms.ToolStripMenuItem();
-            this.newModeOfOperationToolStripMenuItem = new System.Windows.Forms.ToolStripMenuItem();
-            this.updateLeaveToolStripMenuItem = new System.Windows.Forms.ToolStripMenuItem();
-            this.deleteLeaveToolStripMenuItem = new System.Windows.Forms.ToolStripMenuItem();
-            this.toolStripMenuItem9 = new System.Windows.Forms.ToolStripMenuItem();
+            this.updateContractToolStripMenuItem = new System.Windows.Forms.ToolStripMenuItem();
+            this.allContractsToolStripMenuItem = new System.Windows.Forms.ToolStripMenuItem();
+            this.toolStripMenuCreateShift = new System.Windows.Forms.ToolStripMenuItem();
+            this.newShiftTypeToolStripMenuItem = new System.Windows.Forms.ToolStripMenuItem();
+            this.allShiftsToolStripMenuItem = new System.Windows.Forms.ToolStripMenuItem();
+            this.toolStripMenuCreateLeave = new System.Windows.Forms.ToolStripMenuItem();
+            this.allLeavesToolStripMenuItem = new System.Windows.Forms.ToolStripMenuItem();
+            this.toolStripMenuCreatePaycheck = new System.Windows.Forms.ToolStripMenuItem();
+            this.allPaychecksToolStripMenuItem = new System.Windows.Forms.ToolStripMenuItem();
             this.toolStripSeparator4 = new System.Windows.Forms.ToolStripSeparator();
             this.toolStripMenuMyShift = new System.Windows.Forms.ToolStripMenuItem();
             this.toolStripSeparator1 = new System.Windows.Forms.ToolStripSeparator();
@@ -54,7 +57,6 @@ namespace LaborCost
             this.eToolStripMenuItem = new System.Windows.Forms.ToolStripMenuItem();
             this.panel1 = new System.Windows.Forms.Panel();
             this.dataGridView1 = new System.Windows.Forms.DataGridView();
-            this.updateContractToolStripMenuItem = new System.Windows.Forms.ToolStripMenuItem();
             this.menuStrip1.SuspendLayout();
             this.panel1.SuspendLayout();
             ((System.ComponentModel.ISupportInitialize)(this.dataGridView1)).BeginInit();
@@ -92,9 +94,9 @@ namespace LaborCost
             this.toolStripMenuNEW.DropDownItems.AddRange(new System.Windows.Forms.ToolStripItem[] {
             this.toolStripMenuEmployee,
             this.toolStripMenuContract,
-            this.toolStripMenuItem7,
-            this.toolStripMenuItem8,
-            this.toolStripMenuItem9});
+            this.toolStripMenuCreateShift,
+            this.toolStripMenuCreateLeave,
+            this.toolStripMenuCreatePaycheck});
             this.toolStripMenuNEW.Font = new System.Drawing.Font("Segoe UI", 10.2F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, ((byte)(238)));
             this.toolStripMenuNEW.Image = ((System.Drawing.Image)(resources.GetObject("toolStripMenuNEW.Image")));
             this.toolStripMenuNEW.Name = "toolStripMenuNEW";
@@ -106,17 +108,28 @@ namespace LaborCost
             // 
             this.toolStripMenuEmployee.BackColor = System.Drawing.SystemColors.Control;
             this.toolStripMenuEmployee.BackgroundImageLayout = System.Windows.Forms.ImageLayout.None;
+            this.toolStripMenuEmployee.DropDownItems.AddRange(new System.Windows.Forms.ToolStripItem[] {
+            this.allEmployeesToolStripMenuItem});
             this.toolStripMenuEmployee.Image = ((System.Drawing.Image)(resources.GetObject("toolStripMenuEmployee.Image")));
             this.toolStripMenuEmployee.Name = "toolStripMenuEmployee";
             this.toolStripMenuEmployee.Size = new System.Drawing.Size(224, 28);
             this.toolStripMenuEmployee.Text = "Employee";
             this.toolStripMenuEmployee.Click += new System.EventHandler(this.toolStripMenuEmployee_Click_1);
             // 
+            // allEmployeesToolStripMenuItem
+            // 
+            this.allEmployeesToolStripMenuItem.Image = ((System.Drawing.Image)(resources.GetObject("allEmployeesToolStripMenuItem.Image")));
+            this.allEmployeesToolStripMenuItem.Name = "allEmployeesToolStripMenuItem";
+            this.allEmployeesToolStripMenuItem.Size = new System.Drawing.Size(199, 28);
+            this.allEmployeesToolStripMenuItem.Text = "All Employees";
+            this.allEmployeesToolStripMenuItem.Click += new System.EventHandler(this.allEmployeesToolStripMenuItem_Click);
+            // 
             // toolStripMenuContract
             // 
             this.toolStripMenuContract.DropDownItems.AddRange(new System.Windows.Forms.ToolStripItem[] {
             this.jobPositionToolStripMenuItem,
-            this.updateContractToolStripMenuItem});
+            this.updateContractToolStripMenuItem,
+            this.allContractsToolStripMenuItem});
             this.toolStripMenuContract.Image = ((System.Drawing.Image)(resources.GetObject("toolStripMenuContract.Image")));
             this.toolStripMenuContract.Name = "toolStripMenuContract";
             this.toolStripMenuContract.Size = new System.Drawing.Size(224, 28);
@@ -125,61 +138,91 @@ namespace LaborCost
             // 
             // jobPositionToolStripMenuItem
             // 
+            this.jobPositionToolStripMenuItem.Image = ((System.Drawing.Image)(resources.GetObject("jobPositionToolStripMenuItem.Image")));
             this.jobPositionToolStripMenuItem.Name = "jobPositionToolStripMenuItem";
             this.jobPositionToolStripMenuItem.Size = new System.Drawing.Size(224, 28);
             this.jobPositionToolStripMenuItem.Text = "New Job";
             this.jobPositionToolStripMenuItem.Click += new System.EventHandler(this.jobPositionToolStripMenuItem_Click);
             // 
-            // toolStripMenuItem7
+            // updateContractToolStripMenuItem
             // 
-            this.toolStripMenuItem7.DropDownItems.AddRange(new System.Windows.Forms.ToolStripItem[] {
-            this.deleteShiftToolStripMenuItem});
-            this.toolStripMenuItem7.Image = ((System.Drawing.Image)(resources.GetObject("toolStripMenuItem7.Image")));
-            this.toolStripMenuItem7.Name = "toolStripMenuItem7";
-            this.toolStripMenuItem7.Size = new System.Drawing.Size(224, 28);
-            this.toolStripMenuItem7.Text = "Shift";
+            this.updateContractToolStripMenuItem.Image = ((System.Drawing.Image)(resources.GetObject("updateContractToolStripMenuItem.Image")));
+            this.updateContractToolStripMenuItem.Name = "updateContractToolStripMenuItem";
+            this.updateContractToolStripMenuItem.Size = new System.Drawing.Size(224, 28);
+            this.updateContractToolStripMenuItem.Text = "Update Contract";
+            this.updateContractToolStripMenuItem.Click += new System.EventHandler(this.updateContractToolStripMenuItem_Click_1);
             // 
-            // deleteShiftToolStripMenuItem
+            // allContractsToolStripMenuItem
             // 
-            this.deleteShiftToolStripMenuItem.Name = "deleteShiftToolStripMenuItem";
-            this.deleteShiftToolStripMenuItem.Size = new System.Drawing.Size(224, 28);
-            this.deleteShiftToolStripMenuItem.Text = "Delete shift";
+            this.allContractsToolStripMenuItem.Image = ((System.Drawing.Image)(resources.GetObject("allContractsToolStripMenuItem.Image")));
+            this.allContractsToolStripMenuItem.Name = "allContractsToolStripMenuItem";
+            this.allContractsToolStripMenuItem.Size = new System.Drawing.Size(224, 28);
+            this.allContractsToolStripMenuItem.Text = "All Contracts";
+            this.allContractsToolStripMenuItem.Click += new System.EventHandler(this.allContractsToolStripMenuItem_Click);
             // 
-            // toolStripMenuItem8
+            // toolStripMenuCreateShift
             // 
-            this.toolStripMenuItem8.DropDownItems.AddRange(new System.Windows.Forms.ToolStripItem[] {
-            this.newModeOfOperationToolStripMenuItem,
-            this.updateLeaveToolStripMenuItem,
-            this.deleteLeaveToolStripMenuItem});
-            this.toolStripMenuItem8.Image = ((System.Drawing.Image)(resources.GetObject("toolStripMenuItem8.Image")));
-            this.toolStripMenuItem8.Name = "toolStripMenuItem8";
-            this.toolStripMenuItem8.Size = new System.Drawing.Size(224, 28);
-            this.toolStripMenuItem8.Text = "Leave";
+            this.toolStripMenuCreateShift.DropDownItems.AddRange(new System.Windows.Forms.ToolStripItem[] {
+            this.newShiftTypeToolStripMenuItem,
+            this.allShiftsToolStripMenuItem});
+            this.toolStripMenuCreateShift.Image = ((System.Drawing.Image)(resources.GetObject("toolStripMenuCreateShift.Image")));
+            this.toolStripMenuCreateShift.Name = "toolStripMenuCreateShift";
+            this.toolStripMenuCreateShift.Size = new System.Drawing.Size(224, 28);
+            this.toolStripMenuCreateShift.Text = "Shift";
+            this.toolStripMenuCreateShift.Click += new System.EventHandler(this.toolStripMenuCreateShift_Click);
             // 
-            // newModeOfOperationToolStripMenuItem
+            // newShiftTypeToolStripMenuItem
             // 
-            this.newModeOfOperationToolStripMenuItem.Name = "newModeOfOperationToolStripMenuItem";
-            this.newModeOfOperationToolStripMenuItem.Size = new System.Drawing.Size(276, 28);
-            this.newModeOfOperationToolStripMenuItem.Text = "New mode of operation";
+            this.newShiftTypeToolStripMenuItem.Image = ((System.Drawing.Image)(resources.GetObject("newShiftTypeToolStripMenuItem.Image")));
+            this.newShiftTypeToolStripMenuItem.Name = "newShiftTypeToolStripMenuItem";
+            this.newShiftTypeToolStripMenuItem.Size = new System.Drawing.Size(224, 28);
+            this.newShiftTypeToolStripMenuItem.Text = "New Shift Type";
+            this.newShiftTypeToolStripMenuItem.Click += new System.EventHandler(this.newShiftTypeToolStripMenuItem_Click);
             // 
-            // updateLeaveToolStripMenuItem
+            // allShiftsToolStripMenuItem
             // 
-            this.updateLeaveToolStripMenuItem.Name = "updateLeaveToolStripMenuItem";
-            this.updateLeaveToolStripMenuItem.Size = new System.Drawing.Size(276, 28);
-            this.updateLeaveToolStripMenuItem.Text = "Update Leave";
+            this.allShiftsToolStripMenuItem.Image = ((System.Drawing.Image)(resources.GetObject("allShiftsToolStripMenuItem.Image")));
+            this.allShiftsToolStripMenuItem.Name = "allShiftsToolStripMenuItem";
+            this.allShiftsToolStripMenuItem.Size = new System.Drawing.Size(224, 28);
+            this.allShiftsToolStripMenuItem.Text = "All Shifts";
+            this.allShiftsToolStripMenuItem.Click += new System.EventHandler(this.allShiftsToolStripMenuItem_Click_1);
             // 
-            // deleteLeaveToolStripMenuItem
+            // toolStripMenuCreateLeave
             // 
-            this.deleteLeaveToolStripMenuItem.Name = "deleteLeaveToolStripMenuItem";
-            this.deleteLeaveToolStripMenuItem.Size = new System.Drawing.Size(276, 28);
-            this.deleteLeaveToolStripMenuItem.Text = "Delete Leave";
+            this.toolStripMenuCreateLeave.DropDownItems.AddRange(new System.Windows.Forms.ToolStripItem[] {
+            this.allLeavesToolStripMenuItem});
+            this.toolStripMenuCreateLeave.Image = ((System.Drawing.Image)(resources.GetObject("toolStripMenuCreateLeave.Image")));
+            this.toolStripMenuCreateLeave.Name = "toolStripMenuCreateLeave";
+            this.toolStripMenuCreateLeave.Size = new System.Drawing.Size(224, 28);
+            this.toolStripMenuCreateLeave.Text = "Leave";
+            this.toolStripMenuCreateLeave.Click += new System.EventHandler(this.toolStripMenuCreateLeave_Click);
             // 
-            // toolStripMenuItem9
+            // allLeavesToolStripMenuItem
             // 
-            this.toolStripMenuItem9.Image = ((System.Drawing.Image)(resources.GetObject("toolStripMenuItem9.Image")));
-            this.toolStripMenuItem9.Name = "toolStripMenuItem9";
-            this.toolStripMenuItem9.Size = new System.Drawing.Size(224, 28);
-            this.toolStripMenuItem9.Text = "Paycheck";
+            this.allLeavesToolStripMenuItem.BackColor = System.Drawing.SystemColors.Control;
+            this.allLeavesToolStripMenuItem.Image = ((System.Drawing.Image)(resources.GetObject("allLeavesToolStripMenuItem.Image")));
+            this.allLeavesToolStripMenuItem.Name = "allLeavesToolStripMenuItem";
+            this.allLeavesToolStripMenuItem.Size = new System.Drawing.Size(224, 28);
+            this.allLeavesToolStripMenuItem.Text = "All Leaves";
+            this.allLeavesToolStripMenuItem.Click += new System.EventHandler(this.allLeavesToolStripMenuItem_Click);
+            // 
+            // toolStripMenuCreatePaycheck
+            // 
+            this.toolStripMenuCreatePaycheck.DropDownItems.AddRange(new System.Windows.Forms.ToolStripItem[] {
+            this.allPaychecksToolStripMenuItem});
+            this.toolStripMenuCreatePaycheck.Image = ((System.Drawing.Image)(resources.GetObject("toolStripMenuCreatePaycheck.Image")));
+            this.toolStripMenuCreatePaycheck.Name = "toolStripMenuCreatePaycheck";
+            this.toolStripMenuCreatePaycheck.Size = new System.Drawing.Size(224, 28);
+            this.toolStripMenuCreatePaycheck.Text = "Paycheck";
+            this.toolStripMenuCreatePaycheck.Click += new System.EventHandler(this.toolStripMenuCreatePaycheck_Click);
+            // 
+            // allPaychecksToolStripMenuItem
+            // 
+            this.allPaychecksToolStripMenuItem.Image = ((System.Drawing.Image)(resources.GetObject("allPaychecksToolStripMenuItem.Image")));
+            this.allPaychecksToolStripMenuItem.Name = "allPaychecksToolStripMenuItem";
+            this.allPaychecksToolStripMenuItem.Size = new System.Drawing.Size(224, 28);
+            this.allPaychecksToolStripMenuItem.Text = "All Paychecks";
+            this.allPaychecksToolStripMenuItem.Click += new System.EventHandler(this.allPaychecksToolStripMenuItem_Click);
             // 
             // toolStripSeparator4
             // 
@@ -297,13 +340,7 @@ namespace LaborCost
             this.dataGridView1.RowTemplate.Height = 24;
             this.dataGridView1.Size = new System.Drawing.Size(931, 276);
             this.dataGridView1.TabIndex = 0;
-            // 
-            // updateContractToolStripMenuItem
-            // 
-            this.updateContractToolStripMenuItem.Name = "updateContractToolStripMenuItem";
-            this.updateContractToolStripMenuItem.Size = new System.Drawing.Size(224, 28);
-            this.updateContractToolStripMenuItem.Text = "Update Contract";
-            this.updateContractToolStripMenuItem.Click += new System.EventHandler(this.updateContractToolStripMenuItem_Click_1);
+            this.dataGridView1.CellContentClick += new System.Windows.Forms.DataGridViewCellEventHandler(this.dataGridView1_CellContentClick);
             // 
             // MainForm
             // 
@@ -341,9 +378,9 @@ namespace LaborCost
         private System.Windows.Forms.ToolStripMenuItem toolStripMenuNEW;
         private System.Windows.Forms.ToolStripMenuItem toolStripMenuEmployee;
         private System.Windows.Forms.ToolStripMenuItem toolStripMenuContract;
-        private System.Windows.Forms.ToolStripMenuItem toolStripMenuItem7;
-        private System.Windows.Forms.ToolStripMenuItem toolStripMenuItem8;
-        private System.Windows.Forms.ToolStripMenuItem toolStripMenuItem9;
+        private System.Windows.Forms.ToolStripMenuItem toolStripMenuCreateShift;
+        private System.Windows.Forms.ToolStripMenuItem toolStripMenuCreateLeave;
+        private System.Windows.Forms.ToolStripMenuItem toolStripMenuCreatePaycheck;
         private System.Windows.Forms.ToolStripSeparator toolStripSeparator4;
         private System.Windows.Forms.ToolStripSeparator toolStripSeparator1;
         private System.Windows.Forms.ToolStripSeparator toolStripSeparator3;
@@ -352,10 +389,12 @@ namespace LaborCost
         private System.Windows.Forms.ToolStripSeparator toolStripSeparator5;
         private System.Windows.Forms.ToolStripMenuItem jobPositionToolStripMenuItem;
         private System.Windows.Forms.DataGridView dataGridView1;
-        private System.Windows.Forms.ToolStripMenuItem deleteShiftToolStripMenuItem;
-        private System.Windows.Forms.ToolStripMenuItem newModeOfOperationToolStripMenuItem;
-        private System.Windows.Forms.ToolStripMenuItem updateLeaveToolStripMenuItem;
-        private System.Windows.Forms.ToolStripMenuItem deleteLeaveToolStripMenuItem;
         private System.Windows.Forms.ToolStripMenuItem updateContractToolStripMenuItem;
+        private System.Windows.Forms.ToolStripMenuItem newShiftTypeToolStripMenuItem;
+        private System.Windows.Forms.ToolStripMenuItem allEmployeesToolStripMenuItem;
+        private System.Windows.Forms.ToolStripMenuItem allContractsToolStripMenuItem;
+        private System.Windows.Forms.ToolStripMenuItem allShiftsToolStripMenuItem;
+        private System.Windows.Forms.ToolStripMenuItem allLeavesToolStripMenuItem;
+        private System.Windows.Forms.ToolStripMenuItem allPaychecksToolStripMenuItem;
     }
 }

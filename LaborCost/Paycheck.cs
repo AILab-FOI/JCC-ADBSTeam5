@@ -31,5 +31,16 @@ namespace LaborCost
 
         public DateTime Date_To { get; set; }
 
+
+
+
+
+
+
+
+
+
+
+
     }
 }

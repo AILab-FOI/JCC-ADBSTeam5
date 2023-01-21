@@ -18,8 +18,18 @@ namespace LaborCost
             InitializeComponent();
             if (employee.Role == 1)
             {
-               toolStripMenuNEW.Enabled = false;
-                
+                toolStripMenuEmployee.Enabled = false;
+
+                toolStripMenuCreateLeave.Enabled = false;
+
+                toolStripMenuContract.Enabled = false;
+
+                toolStripMenuCreatePaycheck.Enabled = false;
+
+                newShiftTypeToolStripMenuItem.Enabled = false;
+                allShiftsToolStripMenuItem.Enabled = false;
+
+
             }
 
             EmployeeLogged = employee;
@@ -92,10 +102,12 @@ namespace LaborCost
                 }
             }
 
+            EmployeesShift = EmployeesShift.OrderBy(o => o.Date_of_shift).ToList();
+
             foreach (var shift in EmployeesShift)
             {
                 dataGridView1.Rows.Add(shift.Id, shift.Employee.FirstName + " " + shift.Employee.LastName,
-                    shift.Date_of_shift, shift.Type_of_shift.Type, shift.Type_of_shift.Start_time,
+                    shift.Date_of_shift.ToShortDateString(), shift.Type_of_shift.Type, shift.Type_of_shift.Start_time,
                     shift.Type_of_shift.End_time);
 
             }
@@ -144,25 +156,25 @@ namespace LaborCost
         {
             PostgreSqlConnector connector = new PostgreSqlConnector();
 
-            List<Paycheck> AllPaycheck = new List<Paycheck>();
-
-            AllPaycheck = connector.GetAllPaychecks();
+          
 
             List<Paycheck> EmployeePaychecks = new List<Paycheck>();
 
 
-            foreach (var paycheck in AllPaycheck)
+            foreach (var paycheck in connector.GetAllPaychecks())
             {
                 if (paycheck.Employee.Id == EmployeeLogged.Id)
                 {
                     EmployeePaychecks.Add(paycheck);
                 }
             }
+
+            EmployeePaychecks = EmployeePaychecks.OrderBy(o => o.Date_From).ToList();
            
             foreach (var paycheck in EmployeePaychecks)
             {
                 dataGridView1.Rows.Add(paycheck.Id, paycheck.Employee.FirstName + " " + paycheck.Employee.LastName,
-                    paycheck.PaymentDate, paycheck.Total_sick_leave_days,
+                    paycheck.PaymentDate.ToShortDateString(), paycheck.Total_sick_leave_days,
                     paycheck.Total_vacation_days,
                     paycheck.Total_overtime_hours,paycheck.Total_hours, 
                     paycheck.Gross_salary,paycheck.Contributions,
@@ -267,7 +279,7 @@ namespace LaborCost
                 }
             }
 
-
+            EmployeeLeaves = EmployeeLeaves.OrderBy(o => o.Start_date).ToList();
 
             foreach (var leave in EmployeeLeaves)
             {
@@ -292,6 +304,88 @@ namespace LaborCost
             form.ShowDialog();
 
 
+        }
+
+        private void deleteShiftToolStripMenuItem_Click(object sender, EventArgs e)
+        {
+
+        }
+
+        private void newShiftTypeToolStripMenuItem_Click(object sender, EventArgs e)
+        {
+            Shift_type_form form = new Shift_type_form();
+            form.ShowDialog();
+
+        }
+
+        private void toolStripMenuCreateShift_Click(object sender, EventArgs e)
+        {
+            AddShiftForm form = new AddShiftForm(EmployeeLogged);
+            form.Show();
+
+
+        }
+
+        private void toolStripMenuCreateLeave_Click(object sender, EventArgs e)
+        {
+
+            CreateLeaveForm form = new CreateLeaveForm();
+
+            form.ShowDialog();
+
+        }
+
+        private void toolStripMenuCreatePaycheck_Click(object sender, EventArgs e)
+        {
+            CreatePaycheckForm form = new CreatePaycheckForm();
+            form.ShowDialog();
+        }
+
+        private void dataGridView1_CellContentClick(object sender, DataGridViewCellEventArgs e)
+        {
+
+        }
+
+        private void allEmployeesToolStripMenuItem_Click(object sender, EventArgs e)
+        {
+            AllEmployeesForm form = new AllEmployeesForm();
+            form.ShowDialog();
+        }
+
+        private void allContractsToolStripMenuItem_Click(object sender, EventArgs e)
+        {
+            AllContractsForm form = new AllContractsForm();
+            form.ShowDialog();
+
+        }
+
+        private void allShiftsToolStripMenuItem_Click(object sender, EventArgs e)
+        {
+            AllShiftsForm form = new AllShiftsForm();
+            form.ShowDialog();
+        }
+
+        private void allShiftsToolStripMenuItem_Click_1(object sender, EventArgs e)
+        {
+            AllShiftsForm form = new AllShiftsForm();
+            form.ShowDialog();
+        }
+
+        private void deleteShiftToolStripMenuItem_Click_1(object sender, EventArgs e)
+        {
+
+        }
+
+        private void allLeavesToolStripMenuItem_Click(object sender, EventArgs e)
+        {
+            AllLeavesForm form = new AllLeavesForm();
+            form.ShowDialog();
+        }
+
+        private void allPaychecksToolStripMenuItem_Click(object sender, EventArgs e)
+        {
+            AllPaychecksForm form = new AllPaychecksForm();
+            form.ShowDialog();
         }
     }
 }

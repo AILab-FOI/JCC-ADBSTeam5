@@ -19,10 +19,7 @@ namespace LaborCost
 
         public int Number_of_Vacation_Days { get; set; }
 
-        public Contract()
-        {
-            
-        }
+       
 
 
     }

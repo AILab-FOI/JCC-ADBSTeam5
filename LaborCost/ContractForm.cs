@@ -58,49 +58,56 @@ namespace LaborCost
 
         private void buttonCreateContract_Click(object sender, EventArgs e)
         {
-            Contract contract = new Contract();
-
-            Employee employee = null;
-            JobPosition jobPosition = null;
-
-            foreach (var emp in employees)
+            try
             {
-                if(emp.FirstName +" "+ emp.LastName == this.comboBoxEmployee.SelectedItem.ToString())
+                Contract contract = new Contract();
+
+                Employee employee =null;
+                JobPosition jobPosition = null;
+
+             
+
+                foreach (var emp in employees)
                 {
-                    employee = emp;
+                    if (emp.FirstName + " " + emp.LastName == this.comboBoxEmployee.SelectedItem.ToString())
+                    {
+                        employee = emp;
+                    }
+
                 }
+
+                foreach (var jb in jobPositions)
+                {
+                    if (jb.Name.Equals(this.comboBoxJobPosition.SelectedItem))
+                    {
+                        jobPosition = jb;
+                    }
+
+                }
+
+
+                contract.Employee = employee;
+
+                contract.Job = jobPosition;
+
+                contract.Start_Contract = dateTimePickerStart_contract.Value;
+
+                contract.Price_of_hour = decimal.Parse(this.textBoxPriceOfHour.Text);
+
+                contract.Number_of_Vacation_Days = int.Parse(this.textBoxVacationDays.Text);
+
+                PostgreSqlConnector postgreSql = new PostgreSqlConnector();
+
+
+                postgreSql.Insert_Contract(contract);
+
+                this.Close();
+            }
+            catch (SystemException )
+            {
+                MessageBox.Show("Check entered data");
                
             }
-
-            foreach (var jb in jobPositions)
-            {
-                if (jb.Name.Equals(this.comboBoxJobPosition.SelectedItem))
-                {
-                    jobPosition = jb;
-                }
-               
-            }
-
-
-            contract.Employee = employee;
-
-            contract.Job = jobPosition;
-
-            contract.Start_Contract = dateTimePickerStart_contract.Value; 
-
-            contract.Price_of_hour = decimal.Parse(this.textBoxPriceOfHour.Text);
-
-            contract.Number_of_Vacation_Days = int.Parse(this.textBoxVacationDays.Text);
-
-            PostgreSqlConnector postgreSql = new PostgreSqlConnector();
-
-
-            postgreSql.Insert_Contract(contract);
-
-            this.Close();
-
-
-
         }
 
         private void buttonUpadateContract_Click(object sender, EventArgs e)

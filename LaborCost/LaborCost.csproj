@@ -150,11 +150,47 @@
     <Reference Include="System.Xml" />
   </ItemGroup>
   <ItemGroup>
+    <Compile Include="AddShiftForm.cs">
+      <SubType>Form</SubType>
+    </Compile>
+    <Compile Include="AddShiftForm.Designer.cs">
+      <DependentUpon>AddShiftForm.cs</DependentUpon>
+    </Compile>
     <Compile Include="Add_jobForm.cs">
       <SubType>Form</SubType>
     </Compile>
     <Compile Include="Add_jobForm.Designer.cs">
       <DependentUpon>Add_jobForm.cs</DependentUpon>
+    </Compile>
+    <Compile Include="AllContractsForm.cs">
+      <SubType>Form</SubType>
+    </Compile>
+    <Compile Include="AllContractsForm.Designer.cs">
+      <DependentUpon>AllContractsForm.cs</DependentUpon>
+    </Compile>
+    <Compile Include="AllEmployeesForm.cs">
+      <SubType>Form</SubType>
+    </Compile>
+    <Compile Include="AllEmployeesForm.Designer.cs">
+      <DependentUpon>AllEmployeesForm.cs</DependentUpon>
+    </Compile>
+    <Compile Include="AllLeavesForm.cs">
+      <SubType>Form</SubType>
+    </Compile>
+    <Compile Include="AllLeavesForm.Designer.cs">
+      <DependentUpon>AllLeavesForm.cs</DependentUpon>
+    </Compile>
+    <Compile Include="AllPaychecksForm.cs">
+      <SubType>Form</SubType>
+    </Compile>
+    <Compile Include="AllPaychecksForm.Designer.cs">
+      <DependentUpon>AllPaychecksForm.cs</DependentUpon>
+    </Compile>
+    <Compile Include="AllShiftsForm.cs">
+      <SubType>Form</SubType>
+    </Compile>
+    <Compile Include="AllShiftsForm.Designer.cs">
+      <DependentUpon>AllShiftsForm.cs</DependentUpon>
     </Compile>
     <Compile Include="Contract.cs" />
     <Compile Include="ContractForm.cs">
@@ -162,6 +198,18 @@
     </Compile>
     <Compile Include="ContractForm.Designer.cs">
       <DependentUpon>ContractForm.cs</DependentUpon>
+    </Compile>
+    <Compile Include="CreateLeaveForm.cs">
+      <SubType>Form</SubType>
+    </Compile>
+    <Compile Include="CreateLeaveForm.Designer.cs">
+      <DependentUpon>CreateLeaveForm.cs</DependentUpon>
+    </Compile>
+    <Compile Include="CreatePaycheckForm.cs">
+      <SubType>Form</SubType>
+    </Compile>
+    <Compile Include="CreatePaycheckForm.Designer.cs">
+      <DependentUpon>CreatePaycheckForm.cs</DependentUpon>
     </Compile>
     <Compile Include="Employee.cs" />
     <Compile Include="JobPosition.cs" />
@@ -191,6 +239,12 @@
     </Compile>
     <Compile Include="Shift.cs" />
     <Compile Include="Shift_type.cs" />
+    <Compile Include="Shift_type_form.cs">
+      <SubType>Form</SubType>
+    </Compile>
+    <Compile Include="Shift_type_form.Designer.cs">
+      <DependentUpon>Shift_type_form.cs</DependentUpon>
+    </Compile>
     <Compile Include="Type_of_Role.cs" />
     <Compile Include="UpdateContractForm.cs">
       <SubType>Form</SubType>
@@ -198,11 +252,41 @@
     <Compile Include="UpdateContractForm.Designer.cs">
       <DependentUpon>UpdateContractForm.cs</DependentUpon>
     </Compile>
+    <Compile Include="UpdateEmployeeForm.cs">
+      <SubType>Form</SubType>
+    </Compile>
+    <Compile Include="UpdateEmployeeForm.Designer.cs">
+      <DependentUpon>UpdateEmployeeForm.cs</DependentUpon>
+    </Compile>
+    <EmbeddedResource Include="AddShiftForm.resx">
+      <DependentUpon>AddShiftForm.cs</DependentUpon>
+    </EmbeddedResource>
     <EmbeddedResource Include="Add_jobForm.resx">
       <DependentUpon>Add_jobForm.cs</DependentUpon>
     </EmbeddedResource>
+    <EmbeddedResource Include="AllContractsForm.resx">
+      <DependentUpon>AllContractsForm.cs</DependentUpon>
+    </EmbeddedResource>
+    <EmbeddedResource Include="AllEmployeesForm.resx">
+      <DependentUpon>AllEmployeesForm.cs</DependentUpon>
+    </EmbeddedResource>
+    <EmbeddedResource Include="AllLeavesForm.resx">
+      <DependentUpon>AllLeavesForm.cs</DependentUpon>
+    </EmbeddedResource>
+    <EmbeddedResource Include="AllPaychecksForm.resx">
+      <DependentUpon>AllPaychecksForm.cs</DependentUpon>
+    </EmbeddedResource>
+    <EmbeddedResource Include="AllShiftsForm.resx">
+      <DependentUpon>AllShiftsForm.cs</DependentUpon>
+    </EmbeddedResource>
     <EmbeddedResource Include="ContractForm.resx">
       <DependentUpon>ContractForm.cs</DependentUpon>
+    </EmbeddedResource>
+    <EmbeddedResource Include="CreateLeaveForm.resx">
+      <DependentUpon>CreateLeaveForm.cs</DependentUpon>
+    </EmbeddedResource>
+    <EmbeddedResource Include="CreatePaycheckForm.resx">
+      <DependentUpon>CreatePaycheckForm.cs</DependentUpon>
     </EmbeddedResource>
     <EmbeddedResource Include="MainForm.resx">
       <DependentUpon>MainForm.cs</DependentUpon>
@@ -222,8 +306,14 @@
     <EmbeddedResource Include="RegisterEmployeeForm.resx">
       <DependentUpon>RegisterEmployeeForm.cs</DependentUpon>
     </EmbeddedResource>
+    <EmbeddedResource Include="Shift_type_form.resx">
+      <DependentUpon>Shift_type_form.cs</DependentUpon>
+    </EmbeddedResource>
     <EmbeddedResource Include="UpdateContractForm.resx">
       <DependentUpon>UpdateContractForm.cs</DependentUpon>
+    </EmbeddedResource>
+    <EmbeddedResource Include="UpdateEmployeeForm.resx">
+      <DependentUpon>UpdateEmployeeForm.cs</DependentUpon>
     </EmbeddedResource>
     <None Include="packages.config" />
     <None Include="Properties\Settings.settings">

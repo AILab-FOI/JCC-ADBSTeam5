@@ -92,6 +92,90 @@ namespace LaborCost
             }
         }
 
+        public void Delete_Employee_Contract(Employee employee)
+        {
+            using (NpgsqlConnection connection = new NpgsqlConnection(connectionString))
+            {
+                connection.Open();
+                using (NpgsqlCommand command = new NpgsqlCommand())
+                {
+                    command.Connection = connection;
+                    command.CommandText = "DELETE FROM contract WHERE employee = @id";
+                    command.Parameters.AddWithValue("@id", employee.Id);
+                    command.ExecuteNonQuery();
+                }
+            }
+        }
+
+        public void Delete_Employee(Employee employee)
+        {
+            using (NpgsqlConnection connection = new NpgsqlConnection(connectionString))
+            {
+                connection.Open();
+                using (NpgsqlCommand command = new NpgsqlCommand())
+                {
+                    command.Connection = connection;
+                    command.CommandText = "DELETE FROM employee WHERE id = @id";
+                    command.Parameters.AddWithValue("@id", employee.Id);
+                    command.ExecuteNonQuery();
+                }
+            }
+        }
+
+        /*public void Update_Employee(Employee employee, int id)
+        {
+            using (NpgsqlConnection connection = new NpgsqlConnection(connectionString))
+            {
+                connection.Open();
+                using (NpgsqlCommand command = new NpgsqlCommand())
+                {
+                    command.Connection = connection;
+                    command.CommandText = "UPDATE employee SET first_name = @firstName, last_name = @lastName, " +
+                        "email = @email, phone_number = @phoneNumber, birth_date = @birthDate, adress = @adress," +
+                        "username=@username, password = @password, role = @role  WHERE id = @id";
+                    command.Parameters.AddWithValue("@firstName", employee.FirstName);
+                    command.Parameters.AddWithValue("@lastName", employee.LastName);
+                    command.Parameters.AddWithValue("@email", employee.Email);
+                    command.Parameters.AddWithValue("@phoneNumber", employee.PhoneNumber);
+                    command.Parameters.AddWithValue("@birthDate", employee.BirthDay);
+                    command.Parameters.AddWithValue("@adress", employee.Adress);
+                    command.Parameters.AddWithValue("@username", employee.Username);
+                    command.Parameters.AddWithValue("@pasword", employee.Password);
+                    command.Parameters.AddWithValue("@role", employee.Role);
+                    command.Parameters.AddWithValue("@id", id.ToString());
+                    command.ExecuteNonQuery();
+                }
+            }
+        }*/
+
+
+        public void UpdateEmployee(int id, string firstName, string lastName, string email, string phoneNumber,
+                           DateTime birthDate, string address, string username, string password, int role)
+        {
+            using (var connection = new NpgsqlConnection(connectionString))
+            {
+                connection.Open();
+                using (var command = new NpgsqlCommand("UPDATE employee SET first_name = @firstName, last_name = @lastName, " +
+                                                        "email = @email, phone_number = @phoneNumber, birth_date = @birthDate, adress = @adress," +
+                                                        "username=@username, password = @password, role = @role  WHERE id = @id", connection))
+                {
+                    command.Parameters.AddWithValue("@id", id);
+                    command.Parameters.AddWithValue("@firstName", firstName);
+                    command.Parameters.AddWithValue("@lastName", lastName);
+                    command.Parameters.AddWithValue("@email", email);
+                    command.Parameters.AddWithValue("@phoneNumber", phoneNumber);
+                    command.Parameters.AddWithValue("@birthDate", birthDate);
+                    command.Parameters.AddWithValue("@adress", address);
+                    command.Parameters.AddWithValue("@username", username);
+                    command.Parameters.AddWithValue("@password", password);
+                    command.Parameters.AddWithValue("@role", role);
+                    command.ExecuteNonQuery();
+                    
+                }
+            }
+        }
+
+
         public Employee SearchEmployee(int id_Employee)
         {
             Employee employee = new Employee();
@@ -225,36 +309,6 @@ namespace LaborCost
 
             return contracts;
         }
-        public Contract Get_Contract(int emp_ID)
-        {
-            NpgsqlConnection connection = new NpgsqlConnection(connectionString);
-
-            connection.Open();
-
-            NpgsqlCommand command = new NpgsqlCommand();
-            command.Connection = connection;
-
-
-            command.CommandType = System.Data.CommandType.Text;
-
-            command.CommandText = "select * from contract where FK1_ID_Employee = "+emp_ID+" order by Start_Contract desc";
-            //we only need the latest contract to fid the one that curretly applies to te employee (right?)
-            NpgsqlDataReader dataReader = command.ExecuteReader();
-
-
-                Contract contract = new Contract();
-                contract.Id = (int)dataReader["id"];
-                contract.Employee = SearchEmployee((int)dataReader["employee"]);
-                contract.Job = SearchJob((int)dataReader["job_position"]);
-                contract.Start_Contract = (DateTime)dataReader["start_contract"];
-                contract.Price_of_hour = (decimal)dataReader["price_of_hour"];
-                contract.Number_of_Vacation_Days = (int)dataReader["number_of_vacation_days"];
-                contracts.Add(contract);
-
-            connection.Close();
-
-            return contract;
-        }
 
         public void Update_Contract(decimal price_of_hour, Employee employee)
         {
@@ -273,6 +327,8 @@ namespace LaborCost
                 }
             }
         }
+
+        
 
         public void Insert_Job(JobPosition job)
         {
@@ -296,7 +352,6 @@ namespace LaborCost
 
             }
         }
-
 
         public List<Shift> Get_All_Shifts()
         {
@@ -338,6 +393,31 @@ namespace LaborCost
            return shifts;
         }
 
+        public void InsertShift(Shift shift)
+        {
+
+            using (var conn = new NpgsqlConnection(connectionString))
+            {
+                conn.Open();
+
+                using (var cmd = new NpgsqlCommand())
+                {
+                    cmd.Connection = conn;
+                    cmd.CommandText = "INSERT INTO shift (employee,date_of_shift,shift_type) " +
+                        "VALUES (@employee, @date_of_shift," +
+                        "@shift_type)";
+
+                    cmd.Parameters.AddWithValue("@employee", shift.Employee.Id);
+
+                    cmd.Parameters.AddWithValue("@date_of_shift", shift.Date_of_shift);
+
+                    cmd.Parameters.AddWithValue("@shift_type", shift.Type_of_shift.Id);
+
+                    cmd.ExecuteNonQuery();
+                }
+                conn.Close();
+            }
+        }
 
         public List<Shift_type> Get_All_Shift_Types()
         {
@@ -381,34 +461,6 @@ namespace LaborCost
             return Type_of_shifts;
         }
 
-        public int CountShiftType(int emp_ID, string type)
-        {
-            int num;
-
-
-            NpgsqlConnection connection = new NpgsqlConnection(connectionString);
-
-            connection.Open();
-
-            NpgsqlCommand command = new NpgsqlCommand();
-            command.Connection = connection;
-
-
-            command.CommandType = System.Data.CommandType.Text;
-
-            command.CommandText = "select Count(ID_Shift_Type) from shift_type join shift on ID_Shift=ID_Typr_Shift where FK1_ID_Employee = "+emp_ID" and type = "+type";
-
-            NpgsqlDataReader dataReader = command.ExecuteReader();
-
-
-            dataReader.Read()
-           
-            num = (int)dataReader["Count(ID_Shift_Type)"];
-
-            connection.Close();
-
-            return num;
-        }
         public Shift_type SearchShiftType(int idShift_Type)
         {
             Shift_type shift = new Shift_type();
@@ -424,8 +476,38 @@ namespace LaborCost
 
             return shift;
 
+
+
         }
 
+        public void Insert_Shift_Type(Shift_type shift_Type)
+        {
+            using (var conn = new NpgsqlConnection(connectionString))
+            {
+                conn.Open();
+
+                using (var cmd = new NpgsqlCommand())
+                {
+                    cmd.Connection = conn;
+                    cmd.CommandText = "INSERT INTO shift_type (type,payweight,start_time," +
+                        "end_time) VALUES (@type, @payweight," +
+                        "@start_time,@end_time)";
+
+                    cmd.Parameters.AddWithValue("@type", shift_Type.Type);
+
+                    cmd.Parameters.AddWithValue("@payweight", shift_Type.Payweight);
+
+                    cmd.Parameters.AddWithValue("@start_time", shift_Type.Start_time);
+
+                    cmd.Parameters.AddWithValue("@end_time", shift_Type.End_time);
+
+
+
+                    cmd.ExecuteNonQuery();
+                }
+                conn.Close();
+            }
+        }
 
         public List<Mode_of_operation> GetAllModes_of_Operation()
         {
@@ -525,7 +607,35 @@ namespace LaborCost
             return Leaves;
         }
 
+        public void InsertLeave(Leave leave)
+        {
 
+            using (var conn = new NpgsqlConnection(connectionString))
+            {
+                conn.Open();
+
+                using (var cmd = new NpgsqlCommand())
+                {
+                    cmd.Connection = conn;
+                    cmd.CommandText = "INSERT INTO leave_managment (employee,mode_of_operation,start_date," +
+                        "end_date,reason) VALUES (@employee, @mode_of_operation," +
+                        "@start_date,@end_date, @reason)";
+
+                    cmd.Parameters.AddWithValue("@employee", leave.Employee.Id);
+
+                    cmd.Parameters.AddWithValue("@mode_of_operation", leave.Mode.Id);
+
+                    cmd.Parameters.AddWithValue("@start_date", leave.Start_date);
+
+                    cmd.Parameters.AddWithValue("@end_date", leave.End_date);
+
+                    cmd.Parameters.AddWithValue("@reason", leave.Reason);
+
+                    cmd.ExecuteNonQuery();
+                }
+                conn.Close();
+            }
+        }
         public List<Paycheck> GetAllPaychecks()
         {
             List<Paycheck> paychecks = new List<Paycheck>();
@@ -572,59 +682,60 @@ namespace LaborCost
 
                 paycheck.Date_To = (DateTime)dataReader["date_to"];
 
+                paychecks.Add(paycheck);
+
             }
+
             connection.Close();
             return paychecks;
         }
 
-        public Paycheck GetLastPaycheck(Employee employee)
+        public void InsertPaycheck(Paycheck paycheck)
         {
+            using (var conn = new NpgsqlConnection(connectionString))
+            {
+                conn.Open();
 
-            NpgsqlConnection connection = new NpgsqlConnection(connectionString);
+                using (var cmd = new NpgsqlCommand())
+                {
+                    cmd.Connection = conn;
+                    cmd.CommandText = "INSERT INTO paycheck (employee,payment_date,total_sick_leave_days," +
+                        "total_vacation_days,total_overtime_hours,total_hours,gross_salary,date_from," +
+                        "date_to,contributions,net_salary) VALUES (@employee, @payment_date," +
+                        "@total_sick_leave_days,@total_vacation_days,@total_overtime_hours," +
+                        "@total_hours,@gross_salary,@date_from,@date_to,@contributions,@net_salary)";
 
-            connection.Open();
+                    cmd.Parameters.AddWithValue("@employee", paycheck.Employee.Id);
 
-            NpgsqlCommand command = new NpgsqlCommand();
+                    cmd.Parameters.AddWithValue("@payment_date", paycheck.PaymentDate);
 
-            command.Connection = connection;
+                    cmd.Parameters.AddWithValue("@total_sick_leave_days", paycheck.Total_sick_leave_days);
 
-            command.CommandType = System.Data.CommandType.Text;
+                    cmd.Parameters.AddWithValue("@total_vacation_days", paycheck.Total_vacation_days);
 
-            command.CommandText = "select * from paycheck where FK1_ID_Employee = "+employee.ID+" oder by paymentdate Desc";
-            //ordering all the paycheck of one employee by their payment date to know when was the last time waid employee got paid
-            NpgsqlDataReader dataReader = command.ExecuteReader();
+                    cmd.Parameters.AddWithValue("@total_overtime_hours", paycheck.Total_overtime_hours);
 
-            dataReader.Read()
-            
-            Paycheck paycheck = new Paycheck();
+                    cmd.Parameters.AddWithValue("@total_hours", paycheck.Total_hours);
 
-            paycheck.Id = (int)dataReader["id"];
+                    cmd.Parameters.AddWithValue("@gross_salary", paycheck.Gross_salary);
 
-            paycheck.Employee = SearchEmployee((int)dataReader["employee"]);
+                    cmd.Parameters.AddWithValue("@date_from", paycheck.Date_From);
 
-            paycheck.PaymentDate = (DateTime)dataReader["payment_date"];
+                    cmd.Parameters.AddWithValue("@date_to", paycheck.Date_To);
 
-            paycheck.Total_sick_leave_days = (int)dataReader["total_sick_leave_days"];
+                    cmd.Parameters.AddWithValue("@contributions", paycheck.Contributions);
 
-            paycheck.Total_vacation_days = (int)dataReader["total_vacation_days"];
+                    cmd.Parameters.AddWithValue("@net_salary", paycheck.Net_Salary);
 
-            paycheck.Total_hours = (int)dataReader["total_hours"];
 
-            paycheck.Total_overtime_hours = (int)dataReader["total_overtime_hours"];
 
-            paycheck.Gross_salary = (decimal)dataReader["gross_salary"];
-
-            paycheck.Contributions = (decimal)dataReader["contributions"];
-
-            paycheck.Net_Salary = (decimal)dataReader["net_salary"];
-
-            paycheck.Date_From = (DateTime)dataReader["date_from"];
-
-            paycheck.Date_To = (DateTime)dataReader["date_to"];
-
-            
-            connection.Close();
-            return paycheck;
+                    cmd.ExecuteNonQuery();
+                }
+                conn.Close();
+            }
         }
+
+
+
     }
 }
