@@ -225,6 +225,36 @@ namespace LaborCost
 
             return contracts;
         }
+        public Contract Get_Contract(int emp_ID)
+        {
+            NpgsqlConnection connection = new NpgsqlConnection(connectionString);
+
+            connection.Open();
+
+            NpgsqlCommand command = new NpgsqlCommand();
+            command.Connection = connection;
+
+
+            command.CommandType = System.Data.CommandType.Text;
+
+            command.CommandText = "select * from contract where FK1_ID_Employee = "+emp_ID+" order by Start_Contract desc";
+            //we only need the latest contract to fid the one that curretly applies to te employee (right?)
+            NpgsqlDataReader dataReader = command.ExecuteReader();
+
+
+                Contract contract = new Contract();
+                contract.Id = (int)dataReader["id"];
+                contract.Employee = SearchEmployee((int)dataReader["employee"]);
+                contract.Job = SearchJob((int)dataReader["job_position"]);
+                contract.Start_Contract = (DateTime)dataReader["start_contract"];
+                contract.Price_of_hour = (decimal)dataReader["price_of_hour"];
+                contract.Number_of_Vacation_Days = (int)dataReader["number_of_vacation_days"];
+                contracts.Add(contract);
+
+            connection.Close();
+
+            return contract;
+        }
 
         public void Update_Contract(decimal price_of_hour, Employee employee)
         {
@@ -351,6 +381,34 @@ namespace LaborCost
             return Type_of_shifts;
         }
 
+        public int CountShiftType(int emp_ID, string type)
+        {
+            int num;
+
+
+            NpgsqlConnection connection = new NpgsqlConnection(connectionString);
+
+            connection.Open();
+
+            NpgsqlCommand command = new NpgsqlCommand();
+            command.Connection = connection;
+
+
+            command.CommandType = System.Data.CommandType.Text;
+
+            command.CommandText = "select Count(ID_Shift_Type) from shift_type join shift on ID_Shift=ID_Typr_Shift where FK1_ID_Employee = "+emp_ID" and type = "+type";
+
+            NpgsqlDataReader dataReader = command.ExecuteReader();
+
+
+            dataReader.Read()
+           
+            num = (int)dataReader["Count(ID_Shift_Type)"];
+
+            connection.Close();
+
+            return num;
+        }
         public Shift_type SearchShiftType(int idShift_Type)
         {
             Shift_type shift = new Shift_type();
@@ -365,8 +423,6 @@ namespace LaborCost
             }
 
             return shift;
-
-
 
         }
 
@@ -521,6 +577,54 @@ namespace LaborCost
             return paychecks;
         }
 
+        public Paycheck GetLastPaycheck(Employee employee)
+        {
 
+            NpgsqlConnection connection = new NpgsqlConnection(connectionString);
+
+            connection.Open();
+
+            NpgsqlCommand command = new NpgsqlCommand();
+
+            command.Connection = connection;
+
+            command.CommandType = System.Data.CommandType.Text;
+
+            command.CommandText = "select * from paycheck where FK1_ID_Employee = "+employee.ID+" oder by paymentdate Desc";
+            //ordering all the paycheck of one employee by their payment date to know when was the last time waid employee got paid
+            NpgsqlDataReader dataReader = command.ExecuteReader();
+
+            dataReader.Read()
+            
+            Paycheck paycheck = new Paycheck();
+
+            paycheck.Id = (int)dataReader["id"];
+
+            paycheck.Employee = SearchEmployee((int)dataReader["employee"]);
+
+            paycheck.PaymentDate = (DateTime)dataReader["payment_date"];
+
+            paycheck.Total_sick_leave_days = (int)dataReader["total_sick_leave_days"];
+
+            paycheck.Total_vacation_days = (int)dataReader["total_vacation_days"];
+
+            paycheck.Total_hours = (int)dataReader["total_hours"];
+
+            paycheck.Total_overtime_hours = (int)dataReader["total_overtime_hours"];
+
+            paycheck.Gross_salary = (decimal)dataReader["gross_salary"];
+
+            paycheck.Contributions = (decimal)dataReader["contributions"];
+
+            paycheck.Net_Salary = (decimal)dataReader["net_salary"];
+
+            paycheck.Date_From = (DateTime)dataReader["date_from"];
+
+            paycheck.Date_To = (DateTime)dataReader["date_to"];
+
+            
+            connection.Close();
+            return paycheck;
+        }
     }
 }
