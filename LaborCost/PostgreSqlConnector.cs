@@ -10,7 +10,7 @@ namespace LaborCost
     class PostgreSqlConnector
     {
         private string connectionString = "Server=localhost;Port=1999;" +
-                "Database=TBP;User Id=postgres;Password=Fulton1807;";
+                "Database=YourDatabaseName;User Id=postgres;Password=YourServerPassword;";
 
 
 
