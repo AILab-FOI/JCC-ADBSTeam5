@@ -7,6 +7,7 @@ using System.Linq;
 using System.Text;
 using System.Threading.Tasks;
 using System.Windows.Forms;
+using System.Text.RegularExpressions;
 
 namespace LaborCost
 {
@@ -121,10 +122,10 @@ namespace LaborCost
                 }
                 catch (Exception)
                 {
-                    if (!(this.textBoxEmail.Text.Contains("@")))
+                    string pattern = @"^[A-Za-z0-9._%+-]+@[A-Za-z0-9.-]+\.[A-Za-z]{2,}$";
+                    if (Regex.IsMatch(this.textBoxEmail.Text, pattern) == false)
                     {
-                        MessageBox.Show("Email doesn't contain @ sign");
-                       
+                        MessageBox.Show("Incorrect format of email","Email Format");
                     }
                     if (timeSpan <= 18)
                     {

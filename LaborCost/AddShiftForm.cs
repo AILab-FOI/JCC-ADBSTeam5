@@ -23,46 +23,53 @@ namespace LaborCost
 
         private void buttonCreateShift_Click(object sender, EventArgs e)
         {
-
-            PostgreSqlConnector sqlConnector = new PostgreSqlConnector();
-
-            List<Employee> AllEmployes = sqlConnector.GetAll_Employees();
-
-            List<Shift_type> AllShift_Types = sqlConnector.Get_All_Shift_Types();
-
-            Employee employee = new Employee();
-
-            Shift_type shift_Type = new Shift_type();
-
-            foreach (Employee emp in AllEmployes)
+            try
             {
-                if(emp.FirstName+" "+emp.LastName == this.comboBoxEmployee.Text)
-                {
-                    employee = emp;
-                }
-            }
+                PostgreSqlConnector sqlConnector = new PostgreSqlConnector();
 
-            foreach (var shiftType in AllShift_Types)
+                List<Employee> AllEmployes = sqlConnector.GetAll_Employees();
+
+                List<Shift_type> AllShift_Types = sqlConnector.Get_All_Shift_Types();
+
+                Employee employee = new Employee();
+
+                Shift_type shift_Type = new Shift_type();
+
+                foreach (Employee emp in AllEmployes)
+                {
+                    if (emp.FirstName + " " + emp.LastName == this.comboBoxEmployee.Text)
+                    {
+                        employee = emp;
+                    }
+                }
+
+                foreach (var shiftType in AllShift_Types)
+                {
+                    if (shiftType.Type == this.comboBoxType_of_shift.Text)
+                    {
+                        shift_Type = shiftType;
+                    }
+                }
+
+                Shift shift = new Shift();
+
+                shift.Employee = employee;
+
+                shift.Type_of_shift = shift_Type;
+
+                shift.Date_of_shift = dateTimePicker1.Value;
+
+
+                sqlConnector.InsertShift(shift);
+
+                this.Close();
+
+            }
+            catch (Exception)
             {
-                if(shiftType.Type == this.comboBoxType_of_shift.Text)
-                {
-                    shift_Type = shiftType;
-                }
+                MessageBox.Show("You already entered your shift for that date!","Shift Created");
             }
-
-            Shift shift = new Shift();
-
-            shift.Employee = employee;
-
-            shift.Type_of_shift = shift_Type;
-
-            shift.Date_of_shift = dateTimePicker1.Value;
-
-
-            sqlConnector.InsertShift(shift);
-
-            this.Close();
-
+            
 
         }
 

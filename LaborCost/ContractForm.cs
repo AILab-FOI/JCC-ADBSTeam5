@@ -76,6 +76,8 @@ namespace LaborCost
 
                 }
 
+
+
                 foreach (var jb in jobPositions)
                 {
                     if (jb.Name.Equals(this.comboBoxJobPosition.SelectedItem))
@@ -98,15 +100,13 @@ namespace LaborCost
 
                 PostgreSqlConnector postgreSql = new PostgreSqlConnector();
 
-
                 postgreSql.Insert_Contract(contract);
 
                 this.Close();
             }
             catch (SystemException )
             {
-                MessageBox.Show("Check entered data");
-               
+                MessageBox.Show("Employee already have contract!,Check entered data!");
             }
         }
 

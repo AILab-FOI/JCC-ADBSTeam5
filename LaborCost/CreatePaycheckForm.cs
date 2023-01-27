@@ -32,7 +32,18 @@ namespace LaborCost
 
             this.textBoxPaymentDate.Text = DateTime.Now.ToShortDateString();
 
+            DateTime currentDate = DateTime.Now;
+            DateTime firstDayOfCurrentMonth = new DateTime(currentDate.Year, currentDate.Month, 1);
+
+            this.dateTimePickerFrom.Value = firstDayOfCurrentMonth;
+
             
+            DateTime lastDayOfCurrentMonth = new DateTime(currentDate.Year, currentDate.Month, DateTime.DaysInMonth(currentDate.Year, currentDate.Month));
+            dateTimePicker_To.Value = lastDayOfCurrentMonth;
+
+
+
+
 
 
         }
